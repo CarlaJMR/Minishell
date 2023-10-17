@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+
+
 /*t_com	*cmd_new(void)
 {
 	t_com	*cmd;
@@ -83,7 +85,7 @@ int main(int ac, char **av, char **env)
 {
     char    *line;
     char    **first_split;
-    //int i = 0;
+    int i = 0;
     //t_cmd   *cmdlist;
 
     //t_shell data;
@@ -99,18 +101,22 @@ int main(int ac, char **av, char **env)
         line = readline("\e[1;36mminishell$ \e[0m");
         if (line[0])
             add_history(line);
-        //check_syntax(line);
-        first_split = ft_split(line, '|');
-        free(line);
-        trimm_spaces(first_split);
-        /*while (first_split[i])
+        if (check_syntax(line, 0))
         {
-            printf("%s$\n", first_split[i]);
-            i++;
-        }*/
-        //cmdlist = parse(first_split);
-        //execute(data ou data.cmd);
-        //free(first_split);
+            //printf("%s\n", line);
+            first_split = ft_split(line, 2);
+            free(line);
+            //trimm_spaces(first_split);
+            while (first_split[i])
+            {
+                printf("%s$\n", first_split[i]);
+                i++;
+            }
+            //cmdlist = parse(first_split);
+            //execute(data ou data.cmd);
+            //free(first_split);
+        }
+
     }
     //limpar tudo e sair com codigo correto
     return (0);

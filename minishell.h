@@ -37,4 +37,7 @@ typedef struct s_cmd
 	struct s_cmd		*next;
 }	t_cmd;
 
+
+int check_syntax(char *line, int i);
+
 #endif
