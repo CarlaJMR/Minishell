@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-
+//testar um commit
 
 /*t_com	*cmd_new(void)
 {
