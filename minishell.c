@@ -12,62 +12,23 @@
 
 #include "minishell.h"
 
-//testar um commit
-
-/*t_com	*cmd_new(void)
+void	free_split(char **str)
 {
-	t_com	*cmd;
+	int	size;
+	int	i;
 
-	com = malloc(sizeof(t_com));
-	if (!cmd)
-		return (NULL);
-    cmd->redir[0] = 0;
-    cmd->redir[1] = 1;
-	cmd->next = NULL;
-	return (cmd);
+	i = 0;
+	size = 0;
+
+	while (str[size])
+		size++;
+    while (i < size)
+        printf("%s$\n", str[i++]);
+    i = 0;
+	while (i < size)
+		free(str[i++]);
+	free(str);
 }
-
-void    redirections(char **list, int *j, t_cmd   *cmd)
-{
-    int	i;
-
-	i = j;
-	while ((*list)[j])
-	{
-		if (((*list)[j] == '<')
-            process_infile(list, &j, cmd);
-        else if (*list)[j] == '>'))
-            process_outfile(list, &j, cmd);
-        //ver acerto dos indices (tman);
-    }
-
-		else
-			(*line)[j++] = (*line)[i++];
-	}
-}
-
-t_cmd   *parse(char **list)
-{
-    int i;
-    int j;
-    t_cmd   *cmd;
-
-    i = 0
-    while (list[i])
-    {
-        cmd = cmd_new();
-        j = 0;
-        while (j < ft_strlen(list[i]))
-        {
-            rediretions(list[i], &j, cmd);
-            trimm_rediretions();pode ser na mesma;
-            list_to_comand();
-        }
-
-        i++;
-    }
-    return (cmd);
-}*/
 
 void    trimm_spaces(char **arr)
 {
@@ -85,7 +46,7 @@ int main(int ac, char **av, char **env)
 {
     char    *line;
     char    **first_split;
-    int i = 0;
+    //int i;
     //t_cmd   *cmdlist;
 
     //t_shell data;
@@ -106,15 +67,9 @@ int main(int ac, char **av, char **env)
             //printf("%s\n", line);
             first_split = ft_split(line, 2);
             free(line);
-            //trimm_spaces(first_split);
-            while (first_split[i])
-            {
-                printf("%s$\n", first_split[i]);
-                i++;
-            }
             //cmdlist = parse(first_split);
             //execute(data ou data.cmd);
-            //free(first_split);
+            free_split(first_split);
         }
 
     }

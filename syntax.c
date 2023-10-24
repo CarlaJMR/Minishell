@@ -50,7 +50,8 @@ int	check_redir(char *line, int *i)
 			return (0);
 		}
 		skip_spaces(line, i);
-		if (line[*i] == '>' || line[*i] == '<' || line[*i] == '\0')
+		if (line[*i] == '>' || line[*i] == '<' || \
+			line[*i] == '|' || line[*i] == '\0')
 		{
 			if (line [*i] == '\0')
 				print_syntax_error('\n');

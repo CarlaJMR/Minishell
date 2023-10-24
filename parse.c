@@ -1,8 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjoao-me <cjoao-me@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/06 15:11:40 by cjoao-me          #+#    #+#             */
+/*   Updated: 2023/10/24 13:56:38 by cjoao-me         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*tratar redirecoes
-separar comando
-expansao das aspas*/
+#include "minishell.h"
 
 t_cmd	*cmd_new(void)
 {
@@ -17,47 +25,16 @@ t_cmd	*cmd_new(void)
 	return (cmd);
 }
 
-/*void    redirections(char **list, int *j, t_cmd   *cmd)
+void	process_infile(char *line, int *j, t_cmd *cm)
 {
-    int	i;
 
-	i = j;
-	while ((*list)[j])
-	{
-		if (((*list)[j] == '<')
-            process_infile(list, &j, cmd);
-        else if (*list)[j] == '>'))
-            process_outfile(list, &j, cmd);
-        //ver acerto dos indices (tman);
-    }
-
-		else
-			(*line)[j++] = (*line)[i++];
-	}
 }
 
-t_cmd   *parse(char **list)
+void	process_infile(char *line, int *j, t_cmd *cm)
 {
-    int i;
-    int j;
-    t_cmd   *cmd;
 
-    i = 0
-    while (list[i])
-    {
-        cmd = cmd_new();
-        j = 0;
-        while (j < ft_strlen(list[i]))
-        {
-            rediretions(list[i], &j, cmd);
-            trimm_rediretions();pode ser na mesma;
-            list_to_comand();
-        }
+}
 
-        i++;
-    }
-    return (cmd);
-}*/
 void	skip_quotes(char *line, int *i, char c)
 {
 	(*i)++;
@@ -73,10 +50,10 @@ void manage_redirections(char *line, int *j, t_cmd *cm)
     {
         if (line[*j] == '"' || line[*j] == '\'' )
             skip_quotes(line, &j, line[*j]);
-        if (line[*j] == '<')
-            process_infile();
+        else if (line[*j] == '<')
+            process_infile(line, j, cm);
         else if (line[*j] == '>')
-            process_outfile();
+            process_outfile(line, j, cm);
         else
             (*j)++;
     }
@@ -95,9 +72,8 @@ t_cmd parse(char **first)
         j = 0;
         skip_spaces(first[i], &j);
         manage_redirections(first[i], &j, cm);
+		//list_to_comand();
 		i++;
 	}
     return (cm);
-    
 }
-
