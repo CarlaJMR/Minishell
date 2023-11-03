@@ -22,32 +22,38 @@ void	free_split(char **str)
 
 	while (str[size])
 		size++;
-    while (i < size)
+    /*while (i < size)
         printf("%s$\n", str[i++]);
-    i = 0;
+    i = 0;*/
 	while (i < size)
 		free(str[i++]);
 	free(str);
 }
 
-void    trimm_spaces(char **arr)
+void	print_cmd_list(t_cmd *c)
 {
-    int i;
+	int	size;
+	int	i;
+	t_cmd *temp;
 
-    i = 0;
-    while (arr[i])
-    {
-        arr[i]=ft_strtrim(arr[i], " \t\n\v\f\r");
-        i++;
-    }
-}
+	temp = c;
+ 	while (temp)
+ 	{
+ 		i = 0;
+	    size = 0;
+        while (temp->comand[size])
+		    size++;
+        while (i < size)
+            printf("%s$\n", temp->comand[i++]);
+ 		temp = temp->next;
+ 	}
+ }
 
 int main(int ac, char **av, char **env)
 {
     char    *line;
     char    **first_split;
-    //int i;
-    //t_cmd   *cmdlist;
+    t_cmd   *cmdlist;
 
     //t_shell data;
 
@@ -61,17 +67,20 @@ int main(int ac, char **av, char **env)
         //sinais
         line = readline("\e[1;36mminishell$ \e[0m");
         if (line[0])
-            add_history(line);
-        if (check_syntax(line, 0))
         {
-            //printf("%s\n", line);
-            first_split = ft_split(line, 2);
-            free(line);
-            //cmdlist = parse(first_split);
-            //execute(data ou data.cmd);
-            free_split(first_split);
+            add_history(line);
+            if (check_syntax(line, 0))
+            {
+                //printf("%s\n", line);
+                first_split = ft_split(line, 2);
+                free(line);
+                cmdlist = parsing(first_split);
+                free_split(first_split);
+                //print_cmd_list(cmdlist);
+                //execute(data ou data.cmd);
+                free_comand(&cmdlist);
+            }
         }
-
     }
     //limpar tudo e sair com codigo correto
     return (0);

@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = minishell.c syntax.c syntax_utils.c
+SRC = minishell.c syntax.c syntax_utils.c parse.c redirection.c quote_utils.c comand_list_utils.c
 
 LIBFT_DIR = ./libft
 

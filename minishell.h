@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
 # include <stddef.h>
@@ -39,5 +40,15 @@ int		check_syntax(char *line, int i);
 void	print_syntax_error(char c);
 void	skip_spaces(char *s, int *i);
 int		ft_is_space(char c);
-
+t_cmd	*parsing(char **first);
+void	free_split(char **str);
+void	manage_redirections(char **line, int *i, t_cmd *cm);
+void	copy_quotes(char *line, int *i, char *newline, int *j);
+void	delete_quotes(char *line);
+void	skip_quotes(char *line, int *i, char c);
+t_cmd	*new_comand(void);
+void	add_comand(t_cmd **lst, t_cmd *new);
+int		count_quotes(char *line);
+void	free_comand(t_cmd **lst);
+void	print_cmd_list(t_cmd *c);
 #endif

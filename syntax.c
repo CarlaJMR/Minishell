@@ -43,11 +43,13 @@ int	check_redir(char *line, int *i)
 		c = line[*i];
 		(*i)++;
 		if (line[*i] == c)
-			(*i)++;
-		else if (line[*i] != c && (line[*i] == '>' || line[*i] == '>'))
 		{
-			print_syntax_error(line[*i]);
-			return (0);
+			(*i)++;
+			if (line[*i] != c && (line[*i] == '>' || line[*i] == '>'))
+			{
+				print_syntax_error(line[*i]);
+				return (0);
+			}
 		}
 		skip_spaces(line, i);
 		if (line[*i] == '>' || line[*i] == '<' || \
@@ -63,7 +65,7 @@ int	check_redir(char *line, int *i)
 	return (1);
 }
 
-int	check_quotes(char *line, int *i)
+/*int	check_quotes(char *line, int *i)
 {
 	char	c;
 
@@ -78,34 +80,37 @@ int	check_quotes(char *line, int *i)
 			print_syntax_error(c);
 			return (0);
 		}
-		else
-			(*i)++;
 	}
 	return (1);
-}
+}*/
 
 int	check_syntax(char *line, int i)
 {
-	skip_spaces(line, &i);
-	if (line [i] == '|')
+	if (count_quotes(line))
 	{
-		print_syntax_error('|');
-		return (0);
-	}
-	while (line [i])
-	{
-		if (!check_quotes(line, &i))
-			return (0);
-		else if (line [i] == '&' || line [i] == '\\' || line [i] == ';')
+		skip_spaces(line, &i);
+		if (line [i] == '|')
 		{
-			print_syntax_error(line [i]);
+			print_syntax_error('|');
 			return (0);
 		}
-		if (!check_pipe(line, &i))
-			return (0);
-		if (!check_redir(line, &i))
-			return (0);
-		i++;
+		while (line [i])
+		{
+			if (line[i] == '"' || line[i] == '\'' )
+				skip_quotes(line, &i, line[i]);
+			else if (line [i] == '&' || line [i] == '\\' || line [i] == ';')
+			{
+				print_syntax_error(line [i]);
+				return (0);
+			}
+			if (!check_pipe(line, &i))
+				return (0);
+			else if (!check_redir(line, &i))
+				return (0);
+			i++;
+		}
 	}
+	else
+		return (0);
 	return (1);
 }
