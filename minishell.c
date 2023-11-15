@@ -45,6 +45,7 @@ void	print_cmd_list(t_cmd *c)
 		    size++;
         while (i < size)
             printf("%s$\n", temp->comand[i++]);
+        printf("next %p\n", c->next);
  		temp = temp->next;
  	}
  }
@@ -66,6 +67,7 @@ int main(int ac, char **av, char **env)
     {
         //sinais
         line = readline("\e[1;36mminishell$ \e[0m");
+        printf("%s\n", line);
         if (line[0])
         {
             add_history(line);
@@ -76,7 +78,7 @@ int main(int ac, char **av, char **env)
                 free(line);
                 cmdlist = parsing(first_split);
                 free_split(first_split);
-                //print_cmd_list(cmdlist);
+                print_cmd_list(cmdlist);
                 //execute(data ou data.cmd);
                 free_comand(&cmdlist);
             }

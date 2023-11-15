@@ -37,14 +37,31 @@ void	skip_quotes(char *line, int *i, char c)
 	}*/
 }
 
-void	delete_quotes(char *line)
+/*void	delete_quotes(char *line)
 {
-	if (line[0] == '"' || line[0] == '\'' )
+	char	c;
+	int	i;
+
+	i = 0;
+	while (line[i])
 	{
-		line[0] = 32;
-		line[ft_strlen(line) - 1] = 32;
+		if (line[i] == '"' || line[i] == '\'' )
+		{
+			c = line[i];
+			if (line[i]  == c)
+			{
+				while (line[i + 1])
+				{
+					line[i] = line[i + 1];
+					i++;
+				}
+			}
+			i = -1;
+		}
+		i++;
 	}
-}
+	line[i] = 0;
+}*/
 
 int	count_quotes(char *line)
 {
@@ -76,7 +93,15 @@ void	copy_quotes(char *line, int *i, char *newline, int *j)
 	char	c;
 
 	c = line[*i];
-	if (i == 0 && (line[*i] == '"' || line[*i] == '\''))
+	if (c == '"' || c == '\'')
+	{
+		newline[(*j)++] = line[(*i)++];
+		while (line[*i] && line[*i] != c)
+			newline[(*j)++] = line[(*i)++];
+	}
+	/*if (line[*i] != c)
+		newline[(*j)++] = line[(*i)++];*/
+	/*if (i == 0 && (line[*i] == '"' || line[*i] == '\''))
 	{
 		while (line[*i] != c)
 			newline[(*j)++] = line[(*i)++];
@@ -85,7 +110,7 @@ void	copy_quotes(char *line, int *i, char *newline, int *j)
 	{
 		while (line[*i] != c)
 			newline[(*j)++] = line[(*i)++];
-	}
+	}*/
 	/*if (line[*i] != c)
 		newline[(*j)++] = line[(*i)++];*/
 }
