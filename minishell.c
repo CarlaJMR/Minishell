@@ -22,9 +22,6 @@ void	free_split(char **str)
 
 	while (str[size])
 		size++;
-    /*while (i < size)
-        printf("%s$\n", str[i++]);
-    i = 0;*/
 	while (i < size)
 		free(str[i++]);
 	free(str);
@@ -67,18 +64,16 @@ int main(int ac, char **av, char **env)
     {
         //sinais
         line = readline("\e[1;36mminishell$ \e[0m");
-        printf("%s\n", line);
         if (line[0])
         {
             add_history(line);
             if (check_syntax(line, 0))
             {
-                //printf("%s\n", line);
                 first_split = ft_split(line, 2);
                 free(line);
                 cmdlist = parsing(first_split);
                 free_split(first_split);
-                print_cmd_list(cmdlist);
+                //print_cmd_list(cmdlist);
                 //execute(data ou data.cmd);
                 free_comand(&cmdlist);
             }

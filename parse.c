@@ -38,36 +38,6 @@ void    replace_spaces(char *line)
     }
 }
 
-/*void    prepare_2nd_split(char **line)
-{
-    int i;
-    int j;
-    char    *newline;
-
-    i = 0;
-    j = 0;
-    newline = malloc(ft_strlen(*line) * 4);
-    if (!newline)
-        return ;
-    printf("char %c\n", line[0][2]);
-    while (line[0][i])
-    {
-        copy_quotes(line[0], &i, newline, &j);
-        if (line[0][i] == '<' || line[0][i] == '>')
-        {
-            while (line[0][i] == '<' || line[0][i] == '>')
-                newline[j++] = line[0][i++];
-            if (!ft_is_space(line[0][i]))
-                newline[j] = 32;
-        }
-        newline[j++] = line[0][i++];
-    }
-    newline[j] = '\0';
-    replace_spaces(newline);
-    free(*line);
-    *line = newline;
-}*/
-
 char    *prepare_2nd_split(char *line)
 {
     int i;
@@ -111,7 +81,7 @@ void    set_comand_list(char    **line, t_cmd   *cm)
     {
         if (line[i][0] == '<' || line[i][0] == '>')
         {
-            //delete_quotes(line[i + 1]);
+            delete_quotes(line[i + 1]);
             manage_redirections(line, &i, cm);
         }
         else
@@ -122,7 +92,7 @@ void    set_comand_list(char    **line, t_cmd   *cm)
         i++;
     }
     cm->comand[j] = 0;
-    printf("%d\n", cm->redir[0]);
+    /*printf("%d\n", cm->redir[0]);
     printf("%d\n", cm->redir[1]);
     printf("next %p\n", cm->next);
 	i = 0;
@@ -131,33 +101,27 @@ void    set_comand_list(char    **line, t_cmd   *cm)
 		j++;
     while (i < j)
         printf("%s$\n", cm->comand[i++]);
-    printf("quebra\n");
+    printf("quebra\n");*/
 }
 
 t_cmd    *parsing(char **first)
 {
 	int i;
-    //int j;
     char    **second_split;
     t_cmd   **cm_list;
     t_cmd   *cm;
 
     i = 0;
     cm_list = malloc(sizeof(t_cmd *));
-        if (!cm_list)
-            return (NULL);
+    if (!cm_list)
+        return (NULL);
     *cm_list = NULL;
     while (first[i] && first[i][0])
     {
         cm = new_comand();
-        //j = 0;
-        //prepare_2nd_split(&first[i]);
-        //printf("after prepare %s$\n", first[i]);
-        //second_split = ft_split(first[i], 2);
         second_split = ft_split(prepare_2nd_split(first[i]), 2);
         set_comand_list(second_split, cm);
         add_comand(cm_list, cm);
-        //print_cmd_list(*cm_list);
         free_split(second_split);
 		i++;
 	}

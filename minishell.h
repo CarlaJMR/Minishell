@@ -32,6 +32,7 @@
 typedef struct s_cmd
 {
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 	char			**comand;
 	int				redir[2];
 }	t_cmd;
