@@ -84,6 +84,8 @@ void    expand_loop(char *str, char *final, int *j, t_data sh)
             copy_quotes(str, &i, final, j);
         if (str[i] != '$' || ((str[i] == '$' && (str[i + 1] == ' ' || str[i + 1] == '\0'))))
              final[(*j)++] = str[i++];
+        else if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == '\''))
+            i++;
         else
         {
             var = get_var_value(str, &i, sh);

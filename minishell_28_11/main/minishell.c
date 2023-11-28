@@ -80,7 +80,7 @@ int main(int ac, char **av, char **env)
     {
         //sinais
         line = readline("\e[1;36mminishell$ \e[0m");
-        if (line[0])
+        if (line && line[0])
         {
             add_history(line);
             if (check_syntax(line, 0))
